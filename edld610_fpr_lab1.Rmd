@@ -107,7 +107,7 @@ aq_split <- split(x = airquality, f = airquality$Month)
 4. Use a for loop to calculate the mean Ozone by month (remember to remove missing data from the calculation)
 
 5. Replicate this calculation with lapply, sapply, and vapply
-```{star_apply}
+```{r star_apply}
 # compute ozone mean for each month and output list
 lapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE))
 
@@ -119,7 +119,21 @@ vapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE), FUN.VALUE = double(1))
 
 ```
 
-
 6. Produce a plot showing the relation between Ozone and Solar.R for each month.
+```{r ozone_solar_plots}
+# create a plot for each month
+plots_by_month <- lapply(aq_split, function(x) {
+  ggplot(x, aes(Ozone, Solar.R)) +
+    geom_point() +
+    geom_smooth()
+})
+
+
+
+```
+
 
 7. Use a for loop to save the plots to a folder on your computer
+```{r forloop_plots}
+
+```
