@@ -60,10 +60,41 @@ The term labels for the model was `r gsub(" d", " and d", paste(term_labels, col
 2. From the list
 
     + Use at least two different methods to extract m.
-  
+
+```{r 2ash_extractm}
+
+str(l)
+
+# I need to extract m, with is a list within list a
+#method # 1:
+l$a$m
+
+#method #2
+l[["a"]][["m"]]
+
+```
+
     + Extract the third column of m. Maintain the dimensions (matrix structure).
-  
-      + Use at least two different methods to extract the score for student 7.
+ 
+```{r 2ash_extract3c}
+
+l$a$m[, 3, drop = FALSE]
+
+```
+   
+    + Use at least two different methods to extract the score for student 7.
+
+```{r 2ash_s7}
+
+l$b$score
+
+#method 1
+l$b$score[7]
+
+#method 2
+l[["b"]][["score"]][[7]]
+
+```
 
 ## Loops
 
