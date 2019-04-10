@@ -68,6 +68,11 @@ The term labels for the model was `r gsub(" d", " and d", paste(term_labels, col
 ## Loops
 
 3. Use the “airquality” dataset, which is part of base R. Split it by Month
+```{r airquality_split}
+# split by month
+aq_split <- split(x = airquality, f = airquality$Month)
+```
+
 
 4. Use a for loop to calculate the mean Ozone by month (remember to remove missing data from the calculation)
 
