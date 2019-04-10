@@ -2,15 +2,28 @@
 title: "Lab 1"
 author: "Cameron Kay & Ashley Miller"
 date: "4/10/2019"
-output: html_document
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
 ---
 
 ```{r setup, include = FALSE}
+# Set knitr options
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.width = 7.5,
+                      fig.height = 4.5)
+
 # load packages
 library(tidyverse)
 ```
 
-## Data structures
+### Data structures
+
 ```{r daniels_code}
 set.seed(123) # Set random number generation
 
@@ -25,16 +38,16 @@ l <- list(a = list(m = matrix(1:12, ncol = 3),
 
 ### Run the above code
 
-1. From the model results:
+#### 1. From the model results: 
 
-    + Extract the qr tolerance (tol).
+  + Extract the qr tolerance (tol).
     
-```{r extract_qrtol, results = 'hide'}
+```{r extract_qrtol}
 # check the attributes for model
-attributes(m)
+#attributes(m)
 
 # look inside qr_tol
-m$qr
+#m$qr
 
 # extract tolerance
 (tol <- m$qr$tol)
@@ -43,11 +56,11 @@ m$qr
 
 The tolerance is `r round(tol)`. 
 
-    + Extract the term labels from the model.
+  + Extract the term labels from the model.
 
-```{r extract_attributes, results = 'hide'}
+```{r extract_attributes}
 # check the structure of the model
-str(m)
+#str(m)
 
 # look term.labels
 (term_labels <- attributes(m$terms)$term.labels)
@@ -55,15 +68,15 @@ str(m)
 
 The term labels for the model was `r gsub(" d", " and d", paste(term_labels, collapse = ", "))`.
   
-      + hint: Use str to inspect the list. This one is tricky and involves pulling an attribute from an attribute.
+  + hint: Use str to inspect the list. This one is tricky and involves pulling an attribute from an attribute.
     
-2. From the list
+#### 2. From the list
 
-    + Use at least two different methods to extract m.
+  + Use at least two different methods to extract m.
 
 ```{r 2ash_extractm}
 
-str(l)
+#str(l)
 
 # I need to extract m, with is a list within list a
 #method # 1:
@@ -74,7 +87,7 @@ l[["a"]][["m"]]
 
 ```
 
-    + Extract the third column of m. Maintain the dimensions (matrix structure).
+  + Extract the third column of m. Maintain the dimensions (matrix structure).
  
 ```{r 2ash_extract3c}
 
@@ -82,11 +95,11 @@ l$a$m[, 3, drop = FALSE]
 
 ```
    
-    + Use at least two different methods to extract the score for student 7.
+  + Use at least two different methods to extract the score for student 7.
 
 ```{r 2ash_s7}
 
-l$b$score
+#l$b$score
 
 #method 1
 l$b$score[7]
@@ -96,19 +109,22 @@ l[["b"]][["score"]][[7]]
 
 ```
 
-## Loops
+### Loops
 
-3. Use the “airquality” dataset, which is part of base R. Split it by Month
+#### 3. Use the “airquality” dataset, which is part of base R. Split it by Month
+
 ```{r airquality_split}
 # split by month
 aq_split <- split(x = airquality, f = airquality$Month)
+
+aq_split
 ```
 
-4. Use a for loop to calculate the mean Ozone by month (remember to remove missing data from the calculation)
+#### 4. Use a for loop to calculate the mean Ozone by month (remember to remove missing data from the calculation)
 
 ```{r 4ash}
 
-str(aq_split)
+#str(aq_split)
 
 means <- rep(NA, 5)
 
@@ -120,7 +136,8 @@ means
 
 ```
 
-5. Replicate this calculation with lapply, sapply, and vapply
+#### 5. Replicate this calculation with lapply, sapply, and vapply
+
 ```{r star_apply}
 # compute ozone mean for each month and output list
 lapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE))
@@ -133,7 +150,8 @@ vapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE), FUN.VALUE = double(1))
 
 ```
 
-6. Produce a plot showing the relation between Ozone and Solar.R for each month.
+#### 6. Produce a plot showing the relation between Ozone and Solar.R for each month.
+
 ```{r ozone_solar_plots}
 # create a plot for each month
 plots_by_month <- lapply(aq_split, function(x) {
@@ -142,9 +160,11 @@ plots_by_month <- lapply(aq_split, function(x) {
     geom_smooth()
 })
 
+plots_by_month
+
 ```
 
-7. Use a for loop to save the plots to a folder on your computer
+#### 7. Use a for loop to save the plots to a folder on your computer
 
 ```{r 7ash_forloop_plots}
 
