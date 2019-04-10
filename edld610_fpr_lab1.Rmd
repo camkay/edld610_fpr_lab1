@@ -121,16 +121,33 @@ means
 ```
 
 5. Replicate this calculation with lapply, sapply, and vapply
+```{r star_apply}
+# compute ozone mean for each month and output list
+lapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE))
+
+# computer ozone mean for each month and output an atomic vector
+sapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE))
+
+# computer ozone mean for each month and specify output as a double
+vapply(aq_split, function(x) mean(x$Ozone, na.rm = TRUE), FUN.VALUE = double(1))
+
+```
 
 6. Produce a plot showing the relation between Ozone and Solar.R for each month.
+```{r ozone_solar_plots}
+# create a plot for each month
+plots_by_month <- lapply(aq_split, function(x) {
+  ggplot(x, aes(Ozone, Solar.R)) +
+    geom_point() +
+    geom_smooth()
+})
+
+
+```
+
 
 7. Use a for loop to save the plots to a folder on your computer
-
-```{r 7ash}
-
-filenames <- here::here("plots", 
-                        paste0("cyl", names(by_cyl), ".png"))
-filenames
+```{r forloop_plots}
 
 ```
 
