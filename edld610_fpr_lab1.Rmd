@@ -28,8 +28,32 @@ l <- list(a = list(m = matrix(1:12, ncol = 3),
 1. From the model results:
 
     + Extract the qr tolerance (tol).
-  
+    
+```{r extract_qrtol, results = 'hide'}
+# check the attributes for model
+attributes(m)
+
+# look inside qr_tol
+m$qr
+
+# extract tolerance
+(tol <- m$qr$tol)
+
+```
+
+The tolerance is `r round(tol)`. 
+
     + Extract the term labels from the model.
+
+```{r extract_attributes, results = 'hide'}
+# check the structure of the model
+str(m)
+
+# look term.labels
+(term_labels <- attributes(m$terms)$term.labels)
+```
+
+The term labels for the model was `r gsub(" d", " and d", paste(term_labels, collapse = ", "))`.
   
       + hint: Use str to inspect the list. This one is tricky and involves pulling an attribute from an attribute.
     
