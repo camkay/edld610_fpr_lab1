@@ -129,7 +129,9 @@ aq_split
 
 #str(aq_split)
 
-means <- rep(NA, 5)
+#means <- rep(NA, 5)
+
+means <- rep(NA, length(aq_split)) #preferable method
 
 for(i in seq_along(means)) {
     means[i] <- mean(aq_split[[i]][, 1], na.rm = TRUE) #calculates mean of column 1 (Ozone) for each list
