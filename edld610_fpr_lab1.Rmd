@@ -67,6 +67,8 @@ The tolerance is `r round(tol)`.
 
 attr(attr(m$model, "terms"), "term.labels") #approach Daniel wanted
 
+#a <- attr(m$model, "terms")
+#attr(a, "term.labels")
 ```
 
 The term labels for the model was `r gsub(" d", " and d", paste(term_labels, collapse = ", "))`.
